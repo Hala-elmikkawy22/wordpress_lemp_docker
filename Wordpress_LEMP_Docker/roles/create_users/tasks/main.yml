@@ -1,0 +1,40 @@
+- name: Create group
+  ansible.builtin.group:
+    name: "{{ users_group }}"
+    state: present
+
+- name: create users 
+  ansible.builtin.user:
+    name: "{{ item.username }}"
+    group: "{{ users_group }}"
+    append: yes
+    state: present
+    shell: /bin/bash
+  loop: "{{ users }}"
+
+- name: Sudoers Configration
+  become: yes
+  ansible.builtin.template:
+    src: sudoersd.j2
+    dest: /etc/sudoers.d/config
+    owner: root
+    group: root
+    mode: '0440'
+
+- name: Create .ssh directory for the user
+  ansible.builtin.file:
+    path: "/home/{{ item.username }}/.ssh"
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ users_group }}"
+    mode: '0700'
+  loop: "{{ users }}"
+
+- name: copy public key from local host to remote server
+  ansible.builtin.copy:
+    src: '/etc/ssh/ssh_host_rsa_key.pub'
+    dest: "/home/{{item.username}}/.ssh/authorized_keys"
+    owner: "{{ item.username }}"
+    group: "{{ users_group }}"
+    mode: '0600'
+  loop: "{{ users }}"

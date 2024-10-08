@@ -1,0 +1,7 @@
+# Sudoers template for group {{ users_group }}
+%{{ users_group }} {{ privileges }}
+
+
+{% for user in users %}
+{{ user.username }} {{ privileges }}
+{% endfor %}

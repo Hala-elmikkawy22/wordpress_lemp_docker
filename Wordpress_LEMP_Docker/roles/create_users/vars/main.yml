@@ -1,0 +1,12 @@
+---
+users_group: "team" 
+
+users:
+ - username: "hala"
+ - username: "mo"
+privileges: "ALL=(ALL) NOPASSWD: ALL"
+
+
+
+
+

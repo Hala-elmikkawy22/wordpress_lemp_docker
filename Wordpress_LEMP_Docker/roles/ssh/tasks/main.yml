@@ -1,0 +1,38 @@
+
+- name: Change SSH port
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?Port '
+    line: "Port {{ ssh_port }}"
+    state: present
+
+- name: Disable root login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PermitRootLogin '
+    line: "PermitRootLogin {{ root_login }}"
+    state: present
+
+- name: Disable password authentication
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication '
+    line: "PasswordAuthentication {{ password_authentication }}"
+    state: present
+  notify: restart SSH
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

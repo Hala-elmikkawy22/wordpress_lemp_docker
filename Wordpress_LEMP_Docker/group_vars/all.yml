@@ -1,0 +1,31 @@
+server_name: "hala.mikkawy.space"
+
+email: "halelmikkawy@gmail.com"
+domain_name: "{{ server_name }}"
+
+
+nginx_image: nginx:latest
+nginx_container_name: nginx_container
+nginx_conf_path: /etc/nginx/conf.d/nginx.conf
+wordpress_path: "/var/www/html/wordpress"
+
+php_fpm_image: php_fpm_custom_image
+php_fpm_container_name: php_fpm_container
+php_fpm_conf_path: /usr/local/etc/php-fpm.d/www.conf
+
+
+db_name: "wordpressdb"
+db_user: "wordpressuser"
+db_password: "pAsswOrd"
+mariadb_root_password: "pAsswOrd"
+
+
+
+
+ssl_cert_path: /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem
+ssl_key_path: /etc/letsencrypt/live/{{ domain_name }}/privkey.pem
+
+
+
+
+

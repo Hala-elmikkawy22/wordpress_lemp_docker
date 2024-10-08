@@ -1,0 +1,43 @@
+---
+- name: Update apt package index
+  apt:
+    update_cache: yes
+
+- name: Install required packages for Docker
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: present
+
+- name: Add Docker's official GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker's official APT repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    state: present
+
+- name: Update apt package index after adding Docker repo
+  apt:
+    update_cache: yes
+
+- name: Install Docker
+  apt:
+    name: docker.io  # Change to docker-ce if you want the latest version from Docker’s repo
+    state: present
+
+- name: Install Docker Compose
+  apt:
+    name: docker-compose
+    state: present
+
+- name: Start and enable Docker service
+  systemd:
+    name: docker
+    enabled: true
+    state: started

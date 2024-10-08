@@ -1,0 +1,10 @@
+
+ssh_port: "22"
+root_login: "no"
+password_authentication: "no"
+
+
+
+
+
+

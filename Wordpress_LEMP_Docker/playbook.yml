@@ -1,0 +1,18 @@
+---
+#hosts: myhosts
+-  hosts: all
+   remote_user: root
+   become: yes
+   vars_files:
+    - group_vars/all.yml
+    
+   roles:
+    - provisioning
+    - create_users
+    - ssh
+    - docker
+    - docker-containers
+    - uwf
+    - mysql
+    - wordpress      
+    - letsencrypt

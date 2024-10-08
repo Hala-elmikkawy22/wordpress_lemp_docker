@@ -1,0 +1,16 @@
+- name: update packages
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: upgrade packages
+  apt:
+    upgrade: yes
+  become: yes
+
+- name: install packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ packages }}"
+  

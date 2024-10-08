@@ -1,0 +1,35 @@
+- name: Create multiple directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /etc/nginx/conf.d                      
+    - /srv/docker                             
+    - /usr/local/etc/php-fpm.d                
+
+- name: copy nginx.conf.j2
+  template:
+    src: "nginx.conf.j2"
+    dest: "/etc/nginx/conf.d/nginx.conf"
+    mode: "0644"
+
+- name: Copy www.conf to remote host
+  copy:
+    src: www.conf
+    dest: /usr/local/etc/php-fpm.d/www.conf
+    mode: '0644'
+
+- name: copy docker-compose.yml
+  template:
+    src: "docker-compose.yml.j2"
+    dest: /srv/docker/docker-compose.yml
+    mode: '0644'
+
+- name: copy Dockerfile
+  copy:
+    src: Dockerfile
+    dest: /srv/docker/Dockerfile
+    mode: '0644'
+
+- name: Start containers using Docker Compose
+  command: docker-compose -f /srv/docker/docker-compose.yml up -d
