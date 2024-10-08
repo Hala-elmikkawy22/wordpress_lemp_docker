@@ -11,8 +11,19 @@ Tasks:
     Install required packages.
     Run apt update and apt upgrade.
     
+## 2. Create Users
 
-## 2. SSH Configuration
+This role automates the process of user management on a remote server.
+
+Tasks:
+
+     Create group for users.
+     Create users and assign them to a group.
+     Configure sudoers file for the group.
+     Create .ssh directory for the user.
+     copy public key from local host to remote server.
+     
+## 3. SSH Configuration
 
 This role configures SSH settings by modifying the actual SSH configuration file. It includes changing the SSH port, disabling root login, and password authentication. It also manages user and group creation.
 
@@ -21,30 +32,67 @@ Tasks:
     Change SSH port.
     Disable root login.
     Disable password authentication.
-    Create users and assign them to a group.
-    Configure sudoers file for the group.
+   
 
-## 3. Nginx
+## 4. Docker
 
-This role installs Nginx, removes the default site configuration, and sets up a new site configuration.
+This role installs Docker, and Docker Compose.
 
 Tasks:
 
-    Install Nginx.
+    Install required packages for Docker.
+    Add Docker's official GPG key and APT repository.
+    Install Docker.
+    install Docker Compose.
     Unlink default Nginx site.
     Deploy custom Nginx configuration.
     Enable the new site by creating a symlink in sites-enabled.
     Restart Nginx service.
 
-## 4. PHP-FPM
+## 5. Docker Containers Role
 
-This role installs PHP-FPM and necessary PHP modules, configures the www.conf file by modifying lines instead of copying templates, and restarts PHP-FPM.
-
+This role manages the setup of Docker containers for Nginx and PHP-FPM.
 Tasks:
 
-    Install PHP-FPM and required modules.
-    Configure www.conf.
-    Restart PHP-FPM service.
+    Create Multiple Directories: Creates necessary directories for Nginx and PHP-FPM configurations.
+    Copy Nginx Configuration: Copies the Nginx configuration template to the correct location.
+    Copy PHP-FPM Configuration: Copies the PHP-FPM configuration file to the specified directory.
+    Copy Docker Compose File: Copies the Docker Compose template to manage services easily.
+    Copy Dockerfile: Copies the Dockerfile for building the PHP-FPM container.
+    Start Containers Using Docker Compose: Runs the Docker Compose command to start the services.
+
+
+## 6. UWF
+This role for configuring UFW (Uncomplicated Firewall) on a server.
+
+Tasks:
+     
+    installs UFW.
+    sets up firewall rules for SSH, HTTP, and HTTPS.
+    enables the firewall with a default deny policy.
+
+    
+## 7. MySql
+This role installs and configures MariaDB for WordPress, ensuring the database is created and the appropriate user is set up. It also modifies the configuration to allow remote connections by changing the bind-address.
+Tasks:
+      
+    Install MariaDB and Dependencies.
+    Ensure MariaDB Service is Running and Enabled.
+    Create WordPress Database.
+    Create WordPress User.
+    Configure MariaDB to Accept Remote Connections.
+
+## 8. WordPress Role
+
+This role is responsible for installing WordPress and setting it up correctly on the server.
+
+Tasks:
+  
+    Create WordPress Directory**: Ensures that the directory `/var/www/html/` exists for WordPress installation.
+    Download WordPress**: Downloads the latest version of WordPress from the official source and extracts it to the specified directory.
+    Set Permissions for Files**: Sets the appropriate permissions for all WordPress files.
+    Delete wp-config-sample.php**: Removes the sample configuration file that comes with WordPress.
+    Set up wp-config.php**: Copies a templated configuration file (`wp-config.php.j2`) to the WordPress directory.
 
 Prerequisites
 ------------
