@@ -6,4 +6,4 @@
 - name: Obtain SSL certificates using Certbot
   shell: certbot certonly --standalone -d {{ domain_name }} --non-interactive --agree-tos --email {{ email }}
   args:
-    creates: "/etc/letsencrypt/live/{{ domain_name }}/fullchain.pem"
+    creates: "{{ssl_cert_path}}"
