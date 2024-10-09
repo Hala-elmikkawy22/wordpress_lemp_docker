@@ -122,18 +122,19 @@ Role Variables
 - `php_fpm_conf_path`:The directory where PHP-FPM configuration file will be.
 
  ### MySql
- -`db_name`: The name of wordpress database.
- -`db_user`: the user of the database.
- -`db_password`: The password for the dataebase 
+ 
+ - `db_name`: The name of wordpress database.
+ - `db_user`: the user of the database.
+ - `db_password`: The password for the dataebase 
  - `mariadb_root_password`: The password of the Root of database.
    
 ### Wordpress
--`wordpress_path`: The Directory where wordpress will be installed.
+- `wordpress_path`: The Directory where wordpress will be installed.
 
 ### Lets Encrypt
 
--`ssl_cert_path`: The SSL Certificate Path.
--`ssl_key_path` :The SSL key Path.
+- `ssl_cert_path`: The SSL Certificate Path.
+- `ssl_key_path` :The SSL key Path.
 
 
 Dependencies
