@@ -148,13 +148,25 @@ Example Playbook
 Below is an example of how to use roles in a playbook:
 
     ---
-- hosts: myhosts
-  become: yes
-  roles:
+---
+#hosts: myhosts
+-  hosts: all
+   remote_user: root
+   become: yes
+   vars_files:
+    - group_vars/all.yml
+    
+   roles:
     - provisioning
+    - create_users
     - ssh
-    - nginx
-    - PHP-FPM
+    - docker
+    - docker-containers
+    - uwf
+    - mysql
+    - wordpress      
+    - letsencrypt
+
   
 
 License
