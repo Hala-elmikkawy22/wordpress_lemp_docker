@@ -88,11 +88,11 @@ This role is responsible for installing WordPress and setting it up correctly on
 
 Tasks:
   
-    Create WordPress Directory**: Ensures that the directory `/var/www/html/` exists for WordPress installation.
-    Download WordPress**: Downloads the latest version of WordPress from the official source and extracts it to the specified directory.
-    Set Permissions for Files**: Sets the appropriate permissions for all WordPress files.
-    Delete wp-config-sample.php**: Removes the sample configuration file that comes with WordPress.
-    Set up wp-config.php**: Copies a templated configuration file (`wp-config.php.j2`) to the WordPress directory.
+    Create WordPress Directory.
+    Downloads the latest version of WordPress from the official source and extracts it to the specified directory.
+    Sets the appropriate permissions for all WordPress files.
+    Removes the sample configuration file that comes with WordPress.
+    Copies a templated configuration file (`wp-config.php.j2`) to the WordPress directory.
 
 Prerequisites
 ------------
@@ -101,24 +101,39 @@ Prerequisites
 
 Role Variables
 --------------
+### provisioning
+- `packages`: The packages to be installed.
+  
+### Create Usere
+- `users_group` :The name of group to be add.
+- `users`: The users wanted to be created and add to the group.
+- `privileges`: The privileges want to be add. 
 
-### SSH Configuration
+### Docker Compose
 - 'shh_port': Port number for SSH (default is `22`).
 - `root_login`: Whether root login is allowed (`yes` or `no`).
 - `password_authentication`: Whether password authentication is allowed (`yes` or `no`).
-- 'ssh_group': The name of group to be add.
-- 'users': The users wanted to be created and add to the group.
-- 'privileges': The privileges want to be add.
+- `server_name`: The server name or domain for the Nginx configuration.
+- `nginx_image`: The Nginx container is built using this image.
+- `nginx_container_name`: The name of nginx container.
+- `nginx_conf_path`: The directory where Nginx will be installed.
+- `php_fpm_image`: The PHP-FPM container is built using this image.
+- `php_fpm_container_name`: The name of PHP-FPM the container.
+- `php_fpm_conf_path`:The directory where PHP-FPM configuration file will be.
 
-### Nginx Configuration
-- `nginx_server_name`: The server name or domain for the Nginx configuration.
-- `document_root`: The directory where Nginx will be installed.
-- `nginx_site_name`: The name of the Nginx site configuration. 
+ ### MySql
+ -`db_name`: The name of wordpress database.
+ -`db_user`: the user of the database.
+ -`db_password`: The password for the dataebase 
+ - `mariadb_root_password`: The password of the Root of database.
+   
+### Wordpress
+-`wordpress_path`: The Directory where wordpress will be installed.
 
-### PHP-FPM Configuration
--`php_fpm_packages`: The required modules need to be install.
-- `php_fpm_user`: The user under which PHP-FPM will run.
-- `php_fpm_group`: The group under which PHP-FPM will run.
+### Lets Encrypt
+
+-`ssl_cert_path`: The SSL Certificate Path.
+-`ssl_key_path` :The SSL key Path.
 
 
 Dependencies
